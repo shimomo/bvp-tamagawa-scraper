@@ -40,10 +40,10 @@ class ForecastScraper extends BaseScraper
         $crawlerUrl = sprintf($this->baseUrl, 'syussou', $date, $raceCode);
         $crawler = Scraper::getInstance()->request('GET', $crawlerUrl);
         $forecasts = Scraper::filterByKeys($crawler, [
+            '.z_comment',
             '.z_sinnyu',
             '.z_focus_2ren > .focus_list > li',
             '.z_focus_3ren > .focus_list > li',
-            '.z_comment',
             '.j_sinnyu',
             '.j_focus > .focus_list > li',
             '.j_reliability',
@@ -58,16 +58,16 @@ class ForecastScraper extends BaseScraper
             }
         }
 
+        $reporterYesterdayCommentLabel = '記者予想 前日コメント';
         $reporterYesterdayCourseLabel = '記者予想 前日コース';
         $reporterYesterdayFocusExactaLabel = '記者予想 前日フォーカス 2連単';
         $reporterYesterdayFocusTrifectaLabel = '記者予想 前日フォーカス 3連単';
-        $reporterYesterdayCommentLabel = '記者予想 前日コメント';
         $reporterYesterdayFocusLabel = '記者予想 前日フォーカス';
 
+        $reporterYesterdayComment = Normalizer::normalize($forecasts['.z_comment'][0]);
         $reporterYesterdayCourse = Normalizer::normalize($forecasts['.z_sinnyu'][0]);
         $reporterYesterdayFocusExacta = Normalizer::normalize($forecasts['.z_focus_2ren > .focus_list > li']);
         $reporterYesterdayFocusTrifecta = Normalizer::normalize($forecasts['.z_focus_3ren > .focus_list > li']);
-        $reporterYesterdayComment = Normalizer::normalize($forecasts['.z_comment'][0]);
         $reporterYesterdayFocus = array_merge($reporterYesterdayFocusExacta, $reporterYesterdayFocusTrifecta);
 
         $jlcYesterdayCourseLabel = 'JLC予想 前日コース';
@@ -79,6 +79,8 @@ class ForecastScraper extends BaseScraper
         $jlcYesterdayReliability = Normalizer::normalize($forecasts['.j_reliability'][0]);
 
         return [
+            'reporter_yesterday_comment_label' => $reporterYesterdayCommentLabel,
+            'reporter_yesterday_comment' => $reporterYesterdayComment,
             'reporter_yesterday_course_label' => $reporterYesterdayCourseLabel,
             'reporter_yesterday_course' => $reporterYesterdayCourse,
             'reporter_yesterday_focus_label' => $reporterYesterdayFocusLabel,
@@ -87,8 +89,6 @@ class ForecastScraper extends BaseScraper
             'reporter_yesterday_focus_exacta' => $reporterYesterdayFocusExacta,
             'reporter_yesterday_focus_trifecta_label' => $reporterYesterdayFocusTrifectaLabel,
             'reporter_yesterday_focus_trifecta' => $reporterYesterdayFocusTrifecta,
-            'reporter_yesterday_comment_label' => $reporterYesterdayCommentLabel,
-            'reporter_yesterday_comment' => $reporterYesterdayComment,
             'jlc_yesterday_course_label' => $jlcYesterdayCourseLabel,
             'jlc_yesterday_course' => $jlcYesterdayCourse,
             'jlc_yesterday_focus_label' => $jlcYesterdayFocusLabel,
