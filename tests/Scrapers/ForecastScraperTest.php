@@ -60,9 +60,9 @@ final class ForecastScraperTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
             "BVP\TamagawaScraper\Scrapers\BaseScraper::__call() - " .
-            "Call to undefined method 'BVP\TamagawaScraper\Scrapers\BaseScraper::invalid()'."
+            "Call to undefined method 'BVP\TamagawaScraper\Scrapers\BaseScraper::ghost()'."
         );
 
-        $this->scraper->invalid(1, '2024-01-08');
+        $this->scraper->ghost(1, '2024-01-08');
     }
 }
