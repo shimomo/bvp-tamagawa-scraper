@@ -56,7 +56,7 @@ final class ScraperTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage(
-            "BVP\TamagawaScraper\Scrapers\ForecastScraper::scrapeYesterday() - " .
+            "BVP\TamagawaScraper\Scrapers\ForecastScraper::scrape() - " .
             "The specified key '.z_comment' is not found in the content of the URL: " .
             "'https://boatrace-tamagawa.com/modules/yosou/syussou.php?day=20240108&race=1&jo=05'."
         );

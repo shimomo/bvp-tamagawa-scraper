@@ -18,23 +18,10 @@ class ForecastScraper extends BaseScraper
      * @param  string|int                           $raceNumber
      * @param  \Carbon\CarbonInterface|string|null  $raceDate
      * @return array
-     */
-    public function scrape(string|int $raceNumber, CarbonInterface|string|null $raceDate = null): array
-    {
-        return array_merge(...[
-            $this->scrapeYesterday($raceNumber, $raceDate),
-            $this->scrapeToday($raceNumber, $raceDate),
-        ]);
-    }
-
-    /**
-     * @param  string|int                           $raceNumber
-     * @param  \Carbon\CarbonInterface|string|null  $raceDate
-     * @return array
      *
      * @throws \RuntimeException
      */
-    private function scrapeYesterday(string|int $raceNumber, CarbonInterface|string|null $raceDate = null): array
+    public function scrape(string|int $raceNumber, CarbonInterface|string|null $raceDate = null): array
     {
         $raceDate = Carbon::parse($raceDate ?? 'today')->format('Ymd');
         $crawlerUrl = sprintf($this->baseUrl, 'syussou', $raceDate, $raceNumber);
@@ -96,15 +83,5 @@ class ForecastScraper extends BaseScraper
             'jlc_yesterday_reliability_label' => $jlcYesterdayReliabilityLabel,
             'jlc_yesterday_reliability' => $jlcYesterdayReliability,
         ];
-    }
-
-    /**
-     * @param  string|int                           $raceNumber
-     * @param  \Carbon\CarbonInterface|string|null  $raceDate
-     * @return array
-     */
-    private function scrapeToday(string|int $raceNumber, CarbonInterface|string|null $raceDate = null): array
-    {
-        return [];
     }
 }
