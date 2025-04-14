@@ -60,6 +60,7 @@ class ForecastScraper extends BaseScraper
         $jlcYesterdayCourseLabel = 'JLC予想 前日コース';
         $jlcYesterdayFocusLabel = 'JLC予想 前日フォーカス';
         $jlcYesterdayFocusExactaLabel = 'JLC予想 前日フォーカス 2連単';
+        $jlcYesterdayFocusTrifectaLabel = 'JLC予想 前日フォーカス 3連単';
         $jlcYesterdayReliabilityLabel = 'JLC予想 前日信頼度';
 
         $jlcYesterdayCourse = Normalizer::normalize($forecasts['.j_sinnyu'][0]);
@@ -68,6 +69,10 @@ class ForecastScraper extends BaseScraper
 
         $jlcYesterdayFocusExacta = array_values(array_filter($jlcYesterdayFocus, function ($focus) {
             return (substr_count($focus, '-') + substr_count($focus, '=')) === 1;
+        }));
+
+        $jlcYesterdayFocusTrifecta = array_values(array_filter($jlcYesterdayFocus, function ($focus) {
+            return (substr_count($focus, '-') + substr_count($focus, '=')) === 2;
         }));
 
         return [
@@ -87,6 +92,8 @@ class ForecastScraper extends BaseScraper
             'jlc_yesterday_focus' => $jlcYesterdayFocus,
             'jlc_yesterday_focus_exacta_label' => $jlcYesterdayFocusExactaLabel,
             'jlc_yesterday_focus_exacta' => $jlcYesterdayFocusExacta,
+            'jlc_yesterday_focus_trifecta_label' => $jlcYesterdayFocusTrifectaLabel,
+            'jlc_yesterday_focus_trifecta' => $jlcYesterdayFocusTrifecta,
             'jlc_yesterday_reliability_label' => $jlcYesterdayReliabilityLabel,
             'jlc_yesterday_reliability' => $jlcYesterdayReliability,
         ];
