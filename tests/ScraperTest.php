@@ -38,7 +38,7 @@ final class ScraperTest extends TestCase
     /**
      * @return void
      */
-    public function testScrapeCommentsWithRaceCode1AndDate20240108(): void
+    public function testThrowsExceptionWhenMethodIsNotImplementedInComments(): void
     {
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage(
