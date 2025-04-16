@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BVP\TamagawaScraper\Tests;
 
 use BVP\TamagawaScraper\Scraper;
+use BVP\TamagawaScraper\ScraperInterface;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
@@ -33,6 +34,36 @@ final class ScraperTest extends TestCase
     public function testScrapeTimes(array $arguments, array $expected): void
     {
         $this->assertSame($expected, Scraper::scrapeTimes(...$arguments));
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetInstance(): void
+    {
+        Scraper::resetInstance();
+        $this->assertInstanceOf(ScraperInterface::class, Scraper::getInstance());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateInstance(): void
+    {
+        Scraper::resetInstance();
+        $this->assertInstanceOf(ScraperInterface::class, Scraper::createInstance());
+    }
+
+    /**
+     * @return void
+     */
+    public function testResetInstance(): void
+    {
+        Scraper::resetInstance();
+        $instance1 = Scraper::getInstance();
+        Scraper::resetInstance();
+        $instance2 = Scraper::getInstance();
+        $this->assertNotSame($instance1, $instance2);
     }
 
     /**
